@@ -6,13 +6,13 @@ namespace AmazonStoreTestProject.Utils
 {
     public static class WaitUtils
     {
-        public static IWebElement WaitUntilClickable(IWebDriver driver, By by, int timeoutSeconds = 10)
+        public static IWebElement WaitUntilClickable(IWebDriver driver, By by, int timeoutSeconds)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutSeconds));
             return wait.Until(ExpectedConditions.ElementToBeClickable(by));
         }
 
-        public static IWebElement WaitUntilVisible(IWebDriver driver, By by, int timeoutSeconds = 10)
+        public static IWebElement WaitUntilVisible(IWebDriver driver, By by, int timeoutSeconds)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutSeconds));
             return wait.Until(ExpectedConditions.ElementIsVisible(by));

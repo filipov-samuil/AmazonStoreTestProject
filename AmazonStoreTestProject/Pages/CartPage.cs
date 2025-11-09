@@ -33,8 +33,7 @@ namespace AmazonStoreTestProject.Pages
             {
                 string title = titleElement.Text.Trim();
 
-                if (title.Contains(expectedTitle, StringComparison.OrdinalIgnoreCase) ||
-                    expectedTitle.Contains(title, StringComparison.OrdinalIgnoreCase))
+                if (title.Contains(expectedTitle, StringComparison.OrdinalIgnoreCase))              
                 {
                     Console.WriteLine($"Match found.");
                     return true;

@@ -1,15 +1,16 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace AmazonStoreTestProject.Utils
 {
-    public static class ChromeDriverFactory
+    public static class FirefoxDriverFactory
     {
         public static IWebDriver CreateDriver()
         {
-            var options = new ChromeOptions();
+            var options = new FirefoxOptions();
             options.AddArgument("--start-maximized");
-            return new ChromeDriver(options);
+            return new FirefoxDriver(options);
         }
     }
 }

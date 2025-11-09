@@ -20,11 +20,11 @@ namespace AmazonStoreTestProject.Tests
             productPage.SelectHardcover();
             productPage.AddProductToCart();
 
-            Assert.IsTrue(driver.PageSource.Contains("Added to Cart"), "Book was not added to cart.");
+            Assert.That(driver.PageSource.Contains("Added to Cart"), "Book was not added to cart.");
 
             cartPage.ClickOnCartButton();
 
-            Assert.IsTrue(cartPage.IsItemInCart(book.CartTitle), "Book was not found in the cart.");
+            Assert.That(cartPage.IsItemInCart(book.CartTitle), "Book was not found in the cart.");
         }
     }
 }

@@ -26,18 +26,22 @@ namespace AmazonStoreTestProject.Pages
 
         private void DismissModalIfPresent()
         {
+            var modals = driver.FindElements(continueButton);
+            if (modals.Count == 0)
+            {
+                Console.WriteLine("No modal to handle.");
+                return;
+            }
+
             try
             {
                 var button = WaitUtils.WaitUntilClickable(driver, continueButton, TestConfig.TimeoutFiveSeconds);
-                if (button.Displayed)
-                {
-                    button.Click();
-                    Console.WriteLine("Modal dismissed.");
-                }
+                button.Click();
+                Console.WriteLine("Modal dismissed.");
             }
             catch (WebDriverTimeoutException)
             {
-                Console.WriteLine("No modal to handle.");
+                Console.WriteLine("Modal found but not clickable.");
             }
         }
 
@@ -52,6 +56,5 @@ namespace AmazonStoreTestProject.Pages
             searchBtn.Click();
             Console.WriteLine("Search button clicked.");
         }
-
     }
 }
