@@ -20,6 +20,7 @@ namespace AmazonStoreTestProject.Pages
 
         public void OpenHomePage()
         {
+            Console.WriteLine("Opening home page.");
             driver.Navigate().GoToUrl(TestConfig.BaseUrl);
             DismissModalIfPresent();
         }
@@ -47,14 +48,33 @@ namespace AmazonStoreTestProject.Pages
 
         public void SearchForItemInSearchBox(string text)
         {
-            var searchInput = WaitUtils.WaitUntilVisible(driver, searchBox, TestConfig.TimeoutTenSeconds);
-            searchInput.Clear();
-            searchInput.SendKeys(text);
-            Console.WriteLine($"Entered search text: '{text}'");
+            int maxRetries = 2;
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    var searchInput = WaitUtils.WaitUntilVisible(driver, searchBox, TestConfig.TimeoutTenSeconds);
+                    searchInput.Clear();
+                    searchInput.SendKeys(text);
+                    Console.WriteLine($"Entered search text: '{text}'");
 
-            var searchBtn = WaitUtils.WaitUntilClickable(driver, searchButton, TestConfig.TimeoutFiveSeconds);
-            searchBtn.Click();
-            Console.WriteLine("Search button clicked.");
+                    var searchBtn = WaitUtils.WaitUntilClickable(driver, searchButton, TestConfig.TimeoutFiveSeconds);
+                    searchBtn.Click();
+                    Console.WriteLine("Search button clicked.");
+
+                    return;
+                }
+                catch (WebDriverTimeoutException ex)
+                {
+                    Console.WriteLine($"Attempt {attempt} failed: {ex.Message}.");
+                    if (attempt == maxRetries)
+                        throw;
+
+                    Console.WriteLine("Refreshing page and retrying.");
+                    driver.Navigate().Refresh();
+                    DismissModalIfPresent();
+                }
+            }
         }
     }
 }

@@ -9,8 +9,11 @@ namespace AmazonStoreTestProject.Utils
         public static IWebDriver CreateDriver()
         {
             var options = new FirefoxOptions();
-            options.AddArgument("--start-maximized");
-            return new FirefoxDriver(options);
+            var driver = new FirefoxDriver(options);
+
+            driver.Manage().Window.Maximize();
+
+            return driver;
         }
     }
 }

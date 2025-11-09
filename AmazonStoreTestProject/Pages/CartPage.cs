@@ -24,18 +24,18 @@ namespace AmazonStoreTestProject.Pages
 
         public bool IsItemInCart(string expectedTitle)
         {
-            WaitUtils.WaitUntilVisible(driver, By.CssSelector("div.sc-list-item"), TestConfig.TimeoutFiveSeconds);
+            WaitUtils.WaitUntilVisible(driver, By.CssSelector("div.sc-list-item-content"), TestConfig.TimeoutFiveSeconds);
 
-            var allTitleElements = driver.FindElements(By.CssSelector("span.a-truncate-full.a-offscreen"));
-            Console.WriteLine($"Found {allTitleElements.Count} title elements in the cart.");
+            var allTitleElements = driver.FindElements(By.CssSelector("div.sc-list-item-content a.sc-product-link")).Where(e => e.Displayed).ToList();
 
             foreach (var titleElement in allTitleElements)
             {
                 string title = titleElement.Text.Trim();
 
-                if (title.Contains(expectedTitle, StringComparison.OrdinalIgnoreCase))              
+                if (title.Equals(expectedTitle, StringComparison.OrdinalIgnoreCase) ||
+                    title.Contains(expectedTitle, StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"Match found.");
+                    Console.WriteLine("Match found.");
                     return true;
                 }
             }
