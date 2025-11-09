@@ -18,11 +18,13 @@ namespace AmazonStoreTestProject.Pages
         {
             var button = driver.FindElements(hardcoverButton).FirstOrDefault();
             button?.Click();
+            Console.WriteLine("Hardcover selected.");
         }
 
         public void AddProductToCart()
         {
             driver.FindElement(addToCartButton).Click();
+            Console.WriteLine("Add to Cart button clicked.");
         }
     }
 }

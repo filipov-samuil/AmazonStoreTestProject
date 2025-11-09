@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AmazonStoreTestProject.Utils;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -19,7 +20,7 @@ namespace AmazonStoreTestProject.Pages
 
         public void OpenHomePage()
         {
-            driver.Navigate().GoToUrl("https://www.amazon.com");
+            driver.Navigate().GoToUrl(TestConfig.BaseUrl);
             DismissModalIfPresent();
         }
 
@@ -27,28 +28,30 @@ namespace AmazonStoreTestProject.Pages
         {
             try
             {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5000));
-                var button = wait.Until(d => d.FindElement(continueButton));
+                var button = WaitUtils.WaitUntilClickable(driver, continueButton, TestConfig.TimeoutFiveSeconds);
                 if (button.Displayed)
                 {
                     button.Click();
+                    Console.WriteLine("Modal dismissed.");
                 }
             }
-            catch
+            catch (WebDriverTimeoutException)
             {
-                // Modal not present, no action needed
+                Console.WriteLine("No modal to handle.");
             }
         }
 
         public void SearchForItemInSearchBox(string text)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
-            var searchInput = wait.Until(ExpectedConditions.ElementIsVisible(searchBox));
+            var searchInput = WaitUtils.WaitUntilVisible(driver, searchBox, TestConfig.TimeoutTenSeconds);
+            searchInput.Clear();
             searchInput.SendKeys(text);
+            Console.WriteLine($"Entered search text: '{text}'");
 
-            var searchBtn = wait.Until(ExpectedConditions.ElementToBeClickable(searchButton));
+            var searchBtn = WaitUtils.WaitUntilClickable(driver, searchButton, TestConfig.TimeoutFiveSeconds);
             searchBtn.Click();
+            Console.WriteLine("Search button clicked.");
         }
+
     }
 }
