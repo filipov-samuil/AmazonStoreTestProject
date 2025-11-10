@@ -29,7 +29,7 @@ Running Tests:
 
 Reports:
 - HTML report: bin/Debug/net8.0/Reports/TestReport.html
-- Screenshots: bin/Debug/net8.0/Reports/{TestName}_failure.png
+- Screenshots on failure available in the report
 
 Notes:
 - Tests rely on Amazon homepage layout and element IDs at the time of creation
