@@ -6,6 +6,8 @@ namespace AmazonStoreTestProject.Pages
     {
         private readonly IWebDriver driver;
 
+        private const string ProductTitleXPathPattern = "//span[text()='{0}']";
+
         public SearchResultsPage(IWebDriver driver)
         {
             this.driver = driver;
@@ -13,7 +15,8 @@ namespace AmazonStoreTestProject.Pages
 
         public void ClickProductByName(string productName)
         {
-            var product = driver.FindElement(By.XPath($"//span[text()='{productName}']"));
+            var productLocator = By.XPath(string.Format(ProductTitleXPathPattern, productName));
+            var product = driver.FindElement(productLocator);
             product.Click();
         }
     }

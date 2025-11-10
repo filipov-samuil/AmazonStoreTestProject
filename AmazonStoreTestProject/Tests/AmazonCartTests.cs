@@ -20,7 +20,7 @@ namespace AmazonStoreTestProject.Tests
             productPage.SelectHardcover();
             productPage.AddProductToCart();
 
-            Assert.That(driver.PageSource.Contains("Added to Cart"), "Book was not added to cart.");
+            Assert.That(driver.PageSource.Contains("Added to Cart"), "Book was not added to cart successfully.");
 
             cartPage.ClickOnCartButton();
 

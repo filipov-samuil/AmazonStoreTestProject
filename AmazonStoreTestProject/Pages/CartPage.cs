@@ -1,7 +1,5 @@
 ﻿using AmazonStoreTestProject.Utils;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace AmazonStoreTestProject.Pages
 {
@@ -10,6 +8,8 @@ namespace AmazonStoreTestProject.Pages
         private readonly IWebDriver driver;
 
         private readonly By cartButton = By.Id("nav-cart");
+        private readonly By CartItemContent = By.CssSelector("div.sc-list-item-content");
+        private readonly By CartItemTitles = By.CssSelector("div.sc-list-item-content a.sc-product-link");
 
         public CartPage(IWebDriver driver)
         {
@@ -24,9 +24,11 @@ namespace AmazonStoreTestProject.Pages
 
         public bool IsItemInCart(string expectedTitle)
         {
-            WaitUtils.WaitUntilVisible(driver, By.CssSelector("div.sc-list-item-content"), TestConfig.TimeoutFiveSeconds);
+            WaitUtils.WaitUntilVisible(driver, CartItemContent, TestConfig.TimeoutFiveSeconds);
 
-            var allTitleElements = driver.FindElements(By.CssSelector("div.sc-list-item-content a.sc-product-link")).Where(e => e.Displayed).ToList();
+            var allTitleElements = driver.FindElements(CartItemTitles)
+                                         .Where(e => e.Displayed)
+                                         .ToList();
 
             foreach (var titleElement in allTitleElements)
             {

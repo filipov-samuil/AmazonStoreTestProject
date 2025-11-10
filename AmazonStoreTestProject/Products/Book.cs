@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AmazonStoreTestProject.Products
+﻿namespace AmazonStoreTestProject.Products
 {
     public class Book
     {
@@ -18,6 +12,7 @@ namespace AmazonStoreTestProject.Products
         }
     }
 
+    // Book catalogue
     public static class Books
     {
         public static readonly Book FinalEmpireMistbornBookOne = new Book(
