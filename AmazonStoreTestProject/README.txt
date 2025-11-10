@@ -14,7 +14,6 @@ Prerequisites:
 - .NET SDK 8.0 or higher
 - Visual Studio 2022 or higher
 - Firefox installed
-- NuGet packages: Selenium.WebDriver, Selenium.Support, NUnit, NUnit3TestAdapter, Selenium.WebDriver.GeckoDriver
 
 Setup:
 1. Clone the repo via GitHub CLI:
